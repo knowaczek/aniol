@@ -62,7 +62,7 @@
           io.unobserve(en.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    }, { threshold: 0, rootMargin: "0px 0px -8% 0px" });
     revealEls.forEach(function (el) { io.observe(el); });
   } else {
     revealEls.forEach(function (el) { el.classList.add("in"); });
@@ -148,18 +148,28 @@
 
   /* ---------- Cookie banner ---------- */
   var cookie = doc.querySelector(".cookie");
+  var cookieFab = doc.querySelector(".cookie-fab");
   if (cookie) {
-    try {
-      if (!localStorage.getItem("aniol_cookie_ok")) {
-        setTimeout(function () { cookie.classList.add("show"); }, 1200);
-      }
-    } catch (e) { setTimeout(function () { cookie.classList.add("show"); }, 1200); }
+    var consented = false;
+    try { consented = !!localStorage.getItem("aniol_cookie_ok"); } catch (e) {}
+    if (consented) {
+      if (cookieFab) cookieFab.classList.add("show");
+    } else {
+      setTimeout(function () { cookie.classList.add("show"); }, 1200);
+    }
     cookie.querySelectorAll("[data-cookie-accept]").forEach(function (b) {
       b.addEventListener("click", function () {
         try { localStorage.setItem("aniol_cookie_ok", "1"); } catch (e) {}
         cookie.classList.remove("show");
+        if (cookieFab) cookieFab.classList.add("show");
       });
     });
+    if (cookieFab) {
+      cookieFab.addEventListener("click", function () {
+        cookie.classList.add("show");
+        cookieFab.classList.remove("show");
+      });
+    }
   }
 
   /* ---------- Contact form: front-end validation hint ---------- */

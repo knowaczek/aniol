@@ -290,12 +290,15 @@ body.menu-open .brand{opacity:0;pointer-events:none}
 .pagehero--doc{padding-bottom:clamp(48px,6vw,72px)}
 .pagehero--doc::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--navy),var(--navy-700))}
 .pagehero--doc .pagehero__inner{position:relative;z-index:2}
-.prose--doc{font-size:.98rem;line-height:1.8;color:var(--muted)}
+.prose--doc{font-size:.98rem;line-height:1.8;color:var(--muted);overflow-wrap:break-word}
 .prose--doc h2{font-size:clamp(1.6rem,3vw,2.2rem);margin:0 0 1rem}
 .prose--doc h3{font-size:1.2rem;margin:1.8em 0 .5em;color:var(--navy)}
 .prose--doc p{margin-bottom:1.1em}
 .prose--doc strong{color:var(--navy)}
-.prose--doc a[href]{color:var(--sage-dark);text-decoration:underline;text-underline-offset:2px}
+.prose--doc a[href]{color:var(--sage-dark);text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere;word-break:break-word}
+.prose--doc a.doc-link{display:inline-block;margin:.2em 0 1.4em;padding:.7em 1.1em;background:var(--white);border:1px solid var(--greige-200);border-radius:var(--radius-sm);color:var(--navy);text-decoration:none;font-family:var(--sans);font-size:.82rem;box-shadow:var(--shadow-sm);transition:border-color .3s,color .3s,box-shadow .3s}
+.prose--doc a.doc-link:hover{border-color:var(--brass);color:var(--sage-dark);box-shadow:var(--shadow)}
+.prose--doc a.doc-link::before{content:"↗";margin-right:.5em;color:var(--brass)}
 .prose--doc ul,.prose--doc ol{margin:1em 0 1.4em;padding-left:1.4em;display:grid;gap:.5em}
 .prose--doc ul li{list-style:disc}
 .prose--doc ol li{list-style:decimal}
@@ -525,6 +528,14 @@ body.menu-open .brand{opacity:0;pointer-events:none}
 .cookie p a{color:var(--sage-dark);text-decoration:underline}
 .cookie__btns{display:flex;gap:10px;flex-wrap:wrap}
 .cookie .btn{padding:.8em 1.5em;font-size:.74rem}
+.cookie-fab{position:fixed;right:20px;bottom:20px;z-index:79;width:46px;height:46px;border-radius:50%;
+  display:grid;place-items:center;background:var(--white);color:var(--navy);
+  box-shadow:var(--shadow-sm),inset 0 0 0 1px var(--greige-200);
+  opacity:0;visibility:hidden;transform:translateY(10px) scale(.92);
+  transition:opacity .35s var(--ease),transform .35s var(--ease),background .3s,color .3s,box-shadow .3s}
+.cookie-fab.show{opacity:1;visibility:visible;transform:none}
+.cookie-fab:hover{background:var(--brass);color:var(--white);box-shadow:var(--shadow)}
+.cookie-fab svg{width:22px;height:22px}
 
 /* ============================================================
    REVEAL ANIMATIONS
@@ -560,6 +571,7 @@ body.menu-open .brand{opacity:0;pointer-events:none}
   .hero__actions .btn--brass{display:none}
   .header-cta{display:none}
   .callbar{display:flex}
+  .cookie-fab{bottom:calc(80px + env(safe-area-inset-bottom))}
   .site-footer{padding-bottom:84px}
   .form-row{grid-template-columns:1fr;gap:0}
   .footer-top{grid-template-columns:1fr}
