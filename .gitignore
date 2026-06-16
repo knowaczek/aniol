@@ -2,3 +2,10 @@
 **/.DS_Store
 _build/
 _backup_html2/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
